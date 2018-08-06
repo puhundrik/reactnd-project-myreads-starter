@@ -1,11 +1,36 @@
 import React, {Component} from 'react'
 import BookShelf from './BookShelf'
 import { Link } from 'react-router-dom'
+import * as BooksAPI from './BooksAPI'
 
 class MyReads extends Component {
+    state = {
+        books: [],
+        shelves: [
+            {
+                name: 'currentlyReading',
+                title: 'Currently Reading'
+            },
+            {
+                name: 'wantToRead',
+                title: 'Want to Read'
+            },
+            {
+                name: 'read',
+                title: 'Read'
+            }
+        ]
+    }
+
+    componentDidMount() {
+        BooksAPI.getAll().then((books) => {
+            this.setState({books})
+        })
+    }
+
     render() {
-        const books = this.props.books
-        const shelves = this.props.shelves
+        const books = this.state.books
+        const shelves = this.state.shelves
         return (
             <div className="list-books">
                 <div className="list-books-title">
