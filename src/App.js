@@ -14,9 +14,18 @@ class BooksApp extends React.Component {
         showSearchPage: false,
         books: [],
         shelves: [
-            {title: 'currentlyReading'},
-            {title: 'wantToRead'},
-            {title: 'read'}
+            {
+                name: 'currentlyReading',
+                title: 'Currently Reading'
+            },
+            {
+                name: 'wantToRead',
+                title: 'Want to Read'
+            },
+            {
+                name: 'read',
+                title: 'Read'
+            }
         ]
     }
     
@@ -60,8 +69,9 @@ class BooksApp extends React.Component {
               <div>
               {this.state.shelves.map((shelf) => (
                     <BookShelf
-                        key={shelf.title}
-                        books = {this.state.books.filter((book) => book.shelf === shelf.title)}
+                        key={shelf.name}
+                        title={shelf.title}
+                        books = {this.state.books.filter((book) => book.shelf === shelf.name)}
                     />
               ))}
               </div>
