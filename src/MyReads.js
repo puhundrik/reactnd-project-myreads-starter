@@ -27,14 +27,15 @@ class MyReads extends Component {
             this.setState({books})
         })
     }
-    
+
     updateShelf = (book, shelf) => {
         BooksAPI.update(book, shelf)
-        .then((response) => {
-            console.log(response)
-            this.componentDidMount()
+        .then(() => {
+            book.shelf = shelf
+            this.setState(state => ({
+                books: state.books.filter(b => b.id !== book.id).concat(book)
+            }))
         })
-        console.log('1')
     }
 
     render() {
