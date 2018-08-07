@@ -27,6 +27,15 @@ class MyReads extends Component {
             this.setState({books})
         })
     }
+    
+    updateShelf = (book, shelf) => {
+        BooksAPI.update(book, shelf)
+        .then((response) => {
+            console.log(response)
+            this.componentDidMount()
+        })
+        console.log('1')
+    }
 
     render() {
         const books = this.state.books
@@ -43,6 +52,7 @@ class MyReads extends Component {
                                 key={shelf.name}
                                 title={shelf.title}
                                 books = {books.filter((book) => book.shelf === shelf.name)}
+                                onUpdateShelf = {this.updateShelf}
                             />
                         ))}
                     </div>

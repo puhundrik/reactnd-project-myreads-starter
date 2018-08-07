@@ -12,7 +12,7 @@ class BookPreview extends Component {
                         backgroundImage: `url(${book.imageLinks.thumbnail})`
                     }}></div>
                         <div className="book-shelf-changer">
-                            <select>
+                            <select onChange={event => {this.props.onUpdateShelf(book, event.target.value)}}>
                                 <option value="move" disabled>Move to...</option>
                                 <option value="currentlyReading">Currently Reading</option>
                                 <option value="wantToRead">Want to Read</option>

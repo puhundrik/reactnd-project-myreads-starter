@@ -12,6 +12,7 @@ class BookShelf extends Component {
                         <li key={book.id}>
                             <BookPreview
                                 book={book}
+                                onUpdateShelf = {this.props.onUpdateShelf}
                             />
                         </li>
                     ))}
