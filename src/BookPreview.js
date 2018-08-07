@@ -3,6 +3,7 @@ import React, {Component} from 'react'
 class BookPreview extends Component {
     render() {
         const book = this.props.book
+        const bookShelf = book.shelf || 'none'
         return (
             <div className="book">
                 <div className="book-top">
@@ -12,7 +13,7 @@ class BookPreview extends Component {
                         backgroundImage: `url(${book.imageLinks.thumbnail})`
                     }}></div>
                         <div className="book-shelf-changer">
-                            <select value={book.shelf} onChange={event => {this.props.onUpdateShelf(book, event.target.value)}}>
+                            <select value={bookShelf} onChange={event => {this.props.onUpdateShelf(book, event.target.value)}}>
                                 <option value="move" disabled>Move to...</option>
                                 <option value="currentlyReading">Currently Reading</option>
                                 <option value="wantToRead">Want to Read</option>

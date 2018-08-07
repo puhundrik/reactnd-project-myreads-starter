@@ -12,7 +12,13 @@ class BooksApp extends React.Component {
             <Route exact path="/" render={() =>
                 <MyReads/>}
             />
-            <Route path="/search" render={() => <SearchBooks/>} />
+            <Route path="/search" render={({history}) => 
+                <SearchBooks
+                    onSetShelf={() => {
+                        history.push('/')
+                    }}
+                />}
+            />
             </div>
         )
     }
