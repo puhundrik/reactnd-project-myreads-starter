@@ -1,7 +1,7 @@
 import React from 'react'
 import { Route } from 'react-router'
-import MyReads from './MyReads'
-import SearchBooks from './SearchBooks'
+import MyReads from './components/MyReads'
+import SearchBooks from './components/SearchBooks'
 import './App.css'
 
 
