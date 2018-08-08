@@ -17,24 +17,46 @@ class SearchBooks extends Component {
 
     
     updateQuery = (query) => {
-        if (query.length > 0){
+        this.setState({query: query})
+        
+        /*if (query.length > 0){
+            console.log(query)
             BooksAPI.search(query)
             .then((books) => {
                 if (!books || books.error) {
                     return Promise.reject(new Error(books.error || 'Something happend. Check API!'));
                 }
-                this.setState({searchResults: books })
+                this.setState({query: query, searchResults: books })
             })
             .catch((error) => {
                 console.log(error.message)
-                this.setState({searchResults:[]})
+                this.setState({query: query, searchResults:[]})
             })
         }else{
-            this.setState({searchResults:[]})
+            console.log('empt')
+            this.setState({query: '', searchResults:[]})
         }
 
         this.setState({query: query.trim()})
-        
+        console.log(this.state.searchResults)*/
+    }
+    
+    getBooksBySearch() {
+        if (this.state.query.length > 0) {
+            BooksAPI.search(this.state.query)
+            .then((books) => {
+                if (!books || books.error) {
+                    return Promise.reject(new Error(books.error || 'Something happend. Check API!'));
+                }
+                
+            })
+            .catch((error) => {
+                console.log(error.message)
+                return []
+            })
+        } else {
+            return []
+        }
     }
     
     setShelf = (book, shelf) => {
@@ -44,8 +66,13 @@ class SearchBooks extends Component {
         })
     }
     
+    componentDidMount() {
+        console.log('mount');
+    }
+    
     render() {
-        const books = this.state.searchResults
+        console.log(this.getBooksBySearch())
+        const books = this.getBooksBySearch()
         return (
             <div className="search-books">
                 <div className="search-books-bar">
@@ -73,7 +100,7 @@ class SearchBooks extends Component {
                 </div>
                 <div className="search-books-results">
                     <ol className="books-grid">
-                        {books && books.map((book) => (
+                        {books.map((book) => (
                         <li key={book.id}>
                             <BookPreview
                                 book={book}
