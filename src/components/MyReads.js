@@ -5,21 +5,7 @@ import * as BooksAPI from '../BooksAPI'
 
 class MyReads extends Component {
     state = {
-        books: [],
-        shelves: [
-            {
-                name: 'currentlyReading',
-                title: 'Currently Reading'
-            },
-            {
-                name: 'wantToRead',
-                title: 'Want to Read'
-            },
-            {
-                name: 'read',
-                title: 'Read'
-            }
-        ]
+        books: []
     }
 
     componentDidMount() {
@@ -40,7 +26,20 @@ class MyReads extends Component {
 
     render() {
         const books = this.state.books
-        const shelves = this.state.shelves
+        const shelves = [
+            {
+                name: 'currentlyReading',
+                title: 'Currently Reading'
+            },
+            {
+                name: 'wantToRead',
+                title: 'Want to Read'
+            },
+            {
+                name: 'read',
+                title: 'Read'
+            }
+        ]
         return (
             <div className="list-books">
                 <div className="list-books-title">
