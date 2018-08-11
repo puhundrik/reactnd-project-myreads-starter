@@ -4,27 +4,34 @@ import BookPreview from './BookPreview'
 import * as BooksAPI from '../BooksAPI'
 
 class SearchBooks extends Component {
-    state = {
-        query: '',
-        searchResults: []
+    constructor(props) {
+        super(props);
+        this.timerId = null;
+        this.state = {
+            query: '',
+            searchResults: []
+        };
     }
-    
+
     handleChangeShelf () {
         if (this.props.onSetShelf) {
             this.props.onSetShelf()
         }
     }
 
-    
     updateQuery = (query) => {
-        this.setState({query: query})
-        
-        /*if (query.length > 0){
+        if (this.timerId) {
+            clearTimeout(this.timerId);
+            this.timerId = null;
+        }
+
+        this.timerId = setTimeout(() => {
+        if (query.length > 0){
             console.log(query)
             BooksAPI.search(query)
             .then((books) => {
                 if (!books || books.error) {
-                    return Promise.reject(new Error(books.error || 'Something happend. Check API!'));
+                    throw new Error(books.error || 'Something happend. Check API!');
                 }
                 this.setState({query: query, searchResults: books })
             })
@@ -38,41 +45,19 @@ class SearchBooks extends Component {
         }
 
         this.setState({query: query.trim()})
-        console.log(this.state.searchResults)*/
+        console.log(this.state.searchResults)
+        }, 300)
     }
-    
-    getBooksBySearch() {
-        if (this.state.query.length > 0) {
-            BooksAPI.search(this.state.query)
-            .then((books) => {
-                if (!books || books.error) {
-                    return Promise.reject(new Error(books.error || 'Something happend. Check API!'));
-                }
-                
-            })
-            .catch((error) => {
-                console.log(error.message)
-                return []
-            })
-        } else {
-            return []
-        }
-    }
-    
+
     setShelf = (book, shelf) => {
         BooksAPI.update(book, shelf)
         .then(() => {
             this.handleChangeShelf()
         })
     }
-    
-    componentDidMount() {
-        console.log('mount');
-    }
-    
+
     render() {
-        console.log(this.getBooksBySearch())
-        const books = this.getBooksBySearch()
+        const books = this.state.searchResults
         return (
             <div className="search-books">
                 <div className="search-books-bar">
@@ -92,10 +77,8 @@ class SearchBooks extends Component {
                         <input
                             type="text"
                             placeholder="Search by title or author"
-                            value={this.state.query}
                             onChange={(event) => this.updateQuery(event.target.value)}
                         />
-
                     </div>
                 </div>
                 <div className="search-books-results">
