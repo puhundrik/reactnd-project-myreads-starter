@@ -1,6 +1,10 @@
 import React, {Component} from 'react';
 
+/** BookPreview component */
 class BookPreview extends Component {
+    /**
+     * Renders the component
+     */
     render() {
         const book = this.props.book;
         const bookShelf = book.shelf || 'none';

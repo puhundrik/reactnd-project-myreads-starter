@@ -3,7 +3,12 @@ import { Link } from 'react-router-dom';
 import BookPreview from './BookPreview';
 import * as BooksAPI from '../BooksAPI';
 
+/** Component for search page */
 class SearchBooks extends Component {
+    /**
+     * Component constructor
+     * @param {Object} props
+     */
     constructor(props) {
         super(props);
         this.timerId = null;
@@ -19,16 +24,21 @@ class SearchBooks extends Component {
         }
     }
 
+    /**
+     * Updates search results
+     * @param {string} query - The search string
+     */
     updateQuery = (query) => {
         if (this.timerId) {
-            clearTimeout(this.timerId);
+            clearTimeout(this.timerId); // Clear timer to create new
             this.timerId = null;
         }
 
-        this.timerId = setTimeout(() => {
+        this.timerId = setTimeout(() => { // Debounce input
             if (query.length > 0){
                 BooksAPI.search(query)
                 .then((response) => {
+                    // Handle error if occures
                     if (!response || response.error) {
                         throw new Error(response.error || 'Something happend. Check API!');
                     }
@@ -44,21 +54,31 @@ class SearchBooks extends Component {
                         })
                     });
                 })
+                // Handle fetch error
                 .catch((error) => {
                     console.log(error.message);
                     this.setState({query: query, searchResults:[]});
                 })
             }else{
+                // No query, no books
                 this.setState({query: '', searchResults:[]});
             }
         }, 300)
     }
 
+    /**
+     * Shelf change handler
+     * @param {Object} book - Book object
+     * @param {string} shelf - shelf id
+     */
     setShelf = (book, shelf) => {
         this.props.onSetShelf(book, shelf);
         this.props.pushHistory();
     }
 
+    /**
+     * Renders the component
+     */
     render() {
         const books = this.state.searchResults;
         return (

@@ -2,9 +2,14 @@ import React, {Component} from 'react';
 import BookShelf from './BookShelf';
 import { Link } from 'react-router-dom';
 
+/** The component for the main page */
 class MyReads extends Component {
+    /**
+     * Renders the component
+     */
     render() {
         const books = this.props.books;
+        /** @const {Array} shelves - Shelves description */
         const shelves = [
             {
                 name: 'currentlyReading',
@@ -19,6 +24,7 @@ class MyReads extends Component {
                 title: 'Read'
             }
         ];
+
         return (
             <div className="list-books">
                 <div className="list-books-title">
