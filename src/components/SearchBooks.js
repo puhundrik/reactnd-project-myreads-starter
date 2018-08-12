@@ -18,12 +18,6 @@ class SearchBooks extends Component {
         };
     }
 
-    handleChangeShelf () {
-        if (this.props.onSetShelf) {
-            this.props.onSetShelf();
-        }
-    }
-
     /**
      * Updates search results
      * @param {string} query - The search string
