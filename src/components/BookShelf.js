@@ -1,11 +1,11 @@
-import React, {Component} from 'react'
-import BookPreview from './BookPreview'
+import React, {Component} from 'react';
+import BookPreview from './BookPreview';
 
 class BookShelf extends Component {
     render() {
-        let booShelf;
+        let bookShelf;
         if (this.props.books.length > 0) {
-            booShelf = <div className="bookshelf-books">
+            bookShelf = <div className="bookshelf-books">
                 <ol className="books-grid">
                 {this.props.books.map((book) => (
                     <li key={book.id}>
@@ -18,16 +18,16 @@ class BookShelf extends Component {
                 </ol>
             </div>;
         } else {
-            booShelf = 'There are no books on the shelf';
+            bookShelf = 'There are no books on the shelf';
         }
         
         return (
             <div className="bookshelf">
                 <h2 className="bookshelf-title">{this.props.title}</h2>
-                {booShelf}
+                {bookShelf}
             </div>
         )
     }
 }
 
-export default BookShelf
+export default BookShelf;

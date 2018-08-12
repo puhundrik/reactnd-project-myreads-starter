@@ -1,7 +1,7 @@
-import React, {Component} from 'react'
-import { Link } from 'react-router-dom'
-import BookPreview from './BookPreview'
-import * as BooksAPI from '../BooksAPI'
+import React, {Component} from 'react';
+import { Link } from 'react-router-dom';
+import BookPreview from './BookPreview';
+import * as BooksAPI from '../BooksAPI';
 
 class SearchBooks extends Component {
     constructor(props) {
@@ -15,7 +15,7 @@ class SearchBooks extends Component {
 
     handleChangeShelf () {
         if (this.props.onSetShelf) {
-            this.props.onSetShelf()
+            this.props.onSetShelf();
         }
     }
 
@@ -26,33 +26,31 @@ class SearchBooks extends Component {
         }
 
         this.timerId = setTimeout(() => {
-        if (query.length > 0){
-            BooksAPI.search(query)
-            .then((response) => {
-                if (!response || response.error) {
-                    throw new Error(response.error || 'Something happend. Check API!');
-                }
-                this.setState({
-                    query: query,
-                    searchResults: response.map((book) => {
-                        const shelvedBook = this.props.books.find((item) => item.id === book.id)
-                        if (shelvedBook) {
-                            return shelvedBook
-                        } else {
-                            return book
-                        }
-                    })
+            if (query.length > 0){
+                BooksAPI.search(query)
+                .then((response) => {
+                    if (!response || response.error) {
+                        throw new Error(response.error || 'Something happend. Check API!');
+                    }
+                    this.setState({
+                        query: query,
+                        searchResults: response.map((book) => {
+                            const shelvedBook = this.props.books.find((item) => item.id === book.id)
+                            if (shelvedBook) {
+                                return shelvedBook
+                            } else {
+                                return book
+                            }
+                        })
+                    });
                 })
-            })
-            .catch((error) => {
-                console.log(error.message)
-                this.setState({query: query, searchResults:[]})
-            })
-        }else{
-            this.setState({query: '', searchResults:[]})
-        }
-
-        this.setState({query: query.trim()})
+                .catch((error) => {
+                    console.log(error.message);
+                    this.setState({query: query, searchResults:[]});
+                })
+            }else{
+                this.setState({query: '', searchResults:[]});
+            }
         }, 300)
     }
 
@@ -62,7 +60,7 @@ class SearchBooks extends Component {
     }
 
     render() {
-        const books = this.state.searchResults
+        const books = this.state.searchResults;
         return (
             <div className="search-books">
                 <div className="search-books-bar">
@@ -99,8 +97,8 @@ class SearchBooks extends Component {
                     </ol>
                 </div>
             </div>
-        )
+        );
     }
 }
 
-export default SearchBooks
+export default SearchBooks;

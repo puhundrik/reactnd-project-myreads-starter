@@ -1,9 +1,9 @@
-import React, {Component} from 'react'
+import React, {Component} from 'react';
 
 class BookPreview extends Component {
     render() {
-        const book = this.props.book
-        const bookShelf = book.shelf || 'none'
+        const book = this.props.book;
+        const bookShelf = book.shelf || 'none';
         return (
             <div className="book">
                 <div className="book-top">
@@ -25,8 +25,8 @@ class BookPreview extends Component {
                 <div className="book-title">{book.title}</div>
                 <div className="book-authors">{book.authors && book.authors.join(', ')}</div>
             </div>
-        )
+        );
     }
 }
 
-export default BookPreview
+export default BookPreview;

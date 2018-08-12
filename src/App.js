@@ -1,9 +1,9 @@
-import React from 'react'
-import { Route } from 'react-router'
-import MyReads from './components/MyReads'
-import SearchBooks from './components/SearchBooks'
-import * as BooksAPI from './BooksAPI'
-import './App.css'
+import React from 'react';
+import { Route } from 'react-router';
+import MyReads from './components/MyReads';
+import SearchBooks from './components/SearchBooks';
+import * as BooksAPI from './BooksAPI';
+import './App.css';
 
 
 class BooksApp extends React.Component {
@@ -18,18 +18,18 @@ class BooksApp extends React.Component {
 
     componentDidMount() {
         BooksAPI.getAll().then((books) => {
-            this.setState({books})
-        })
+            this.setState({books});
+        });
     }
 
     updateShelf (book, shelf) {
         BooksAPI.update(book, shelf)
         .then(() => {
-            book.shelf = shelf
+            book.shelf = shelf;
             this.setState((state) => ({
                 books: state.books.filter(b => b.id !== book.id).concat(book)
-            }))
-        })
+            }));
+        });
     }
     
     render() {
@@ -52,8 +52,8 @@ class BooksApp extends React.Component {
                 />}
             />
             </div>
-        )
+        );
     }
 }
 
-export default BooksApp
+export default BooksApp;
