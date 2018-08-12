@@ -4,7 +4,7 @@
 
 This is the project for Udacity Frontend Nanodegree Course.
 
-MyReads is a simple app that allows users to track and categorize books they have read, are currently reading, or want to read.
+MyReads is a simple app that allows users to track and categorize books they have read, are currently reading or want to read.
 
 ## REQUIREMENTS
 
@@ -29,7 +29,7 @@ In terminal navigate to the folder with the project files and run:
 npm install
 ```
 
-to install all needed packages and dependences
+to install all needed packages and dependences.
 
 To start the project run this command from the folder with the project files:
 
