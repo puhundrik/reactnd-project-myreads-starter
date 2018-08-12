@@ -27,33 +27,38 @@ class SearchBooks extends Component {
 
         this.timerId = setTimeout(() => {
         if (query.length > 0){
-            console.log(query)
             BooksAPI.search(query)
-            .then((books) => {
-                if (!books || books.error) {
-                    throw new Error(books.error || 'Something happend. Check API!');
+            .then((response) => {
+                if (!response || response.error) {
+                    throw new Error(response.error || 'Something happend. Check API!');
                 }
-                this.setState({query: query, searchResults: books })
+                this.setState({
+                    query: query,
+                    searchResults: response.map((book) => {
+                        const shelvedBook = this.props.books.find((item) => item.id === book.id)
+                        if (shelvedBook) {
+                            return shelvedBook
+                        } else {
+                            return book
+                        }
+                    })
+                })
             })
             .catch((error) => {
                 console.log(error.message)
                 this.setState({query: query, searchResults:[]})
             })
         }else{
-            console.log('empt')
             this.setState({query: '', searchResults:[]})
         }
 
         this.setState({query: query.trim()})
-        console.log(this.state.searchResults)
         }, 300)
     }
 
     setShelf = (book, shelf) => {
-        BooksAPI.update(book, shelf)
-        .then(() => {
-            this.handleChangeShelf()
-        })
+        this.props.onSetShelf(book, shelf);
+        this.props.pushHistory();
     }
 
     render() {
